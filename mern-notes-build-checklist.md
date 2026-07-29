@@ -14,27 +14,27 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
 
 **Goal:** prove Express itself works before touching a database or auth.
 
-- [ ] Create the project folder and initialize npm
+- [✅] Create the project folder and initialize npm
   ```bash
   mkdir mern-notes-app && cd mern-notes-app
   mkdir backend && cd backend
   npm init -y
   ```
-- [ ] Open `backend/package.json` and add `"type": "module"` at the top level
+- [✅] Open `backend/package.json` and add `"type": "module"` at the top level
       (lets us use `import`/`export` instead of `require`)
-- [ ] Install dependencies
+- [✅] Install dependencies
   ```bash
   npm install express dotenv cors
   npm install --save-dev nodemon
   ```
-- [ ] Add scripts to `package.json`:
+- [✅] Add scripts to `package.json`:
   ```json
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   }
   ```
-- [ ] Create `backend/server.js`:
+- [✅] Create `backend/server.js`:
   ```js
   import express from "express";
 
@@ -49,8 +49,8 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
     console.log(`Server running on http://localhost:${PORT}`);
   });
   ```
-- [ ] Run it: `npm run dev`
-- [ ] **Test:** in a second terminal, run:
+- [✅] Run it: `npm run dev`
+- [✅] **Test:** in a second terminal, run:
   ```bash
   curl http://localhost:5000
   ```
@@ -64,29 +64,29 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
 
 **Goal:** prove Node can talk to MongoDB, with nothing else attached yet.
 
-- [ ] Get a MongoDB instance ready (pick one):
+- [✅] Get a MongoDB instance ready (pick one):
   - **Local:** install MongoDB Community Server for your OS, make sure the
     `mongod` service is running (default: `mongodb://127.0.0.1:27017`)
   - **Cloud (easier, recommended for beginners):** create a free cluster at
     https://www.mongodb.com/cloud/atlas, create a database user, allow your
     IP in Network Access, and copy the connection string (looks like
     `mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/`)
-- [ ] Install Mongoose
+- [✅] Install Mongoose
   ```bash
   npm install mongoose
   ```
-- [ ] Create `backend/.env`:
+- [✅] Create `backend/.env`:
   ```
   MONGO_URI=mongodb://127.0.0.1:27017/mern-notes
   PORT=5000
   ```
   (swap in your Atlas string if using the cloud option)
-- [ ] Create `backend/.gitignore`:
+- [✅] Create `backend/.gitignore`:
   ```
   node_modules
   .env
   ```
-- [ ] Create `backend/config/db.js`:
+- [✅] Create `backend/config/db.js`:
   ```js
   import mongoose from "mongoose";
 
@@ -102,7 +102,7 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
 
   export default connectDB;
   ```
-- [ ] Update `backend/server.js` to load env vars and connect:
+- [✅] Update `backend/server.js` to load env vars and connect:
   ```js
   import express from "express";
   import dotenv from "dotenv";
