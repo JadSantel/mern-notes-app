@@ -128,7 +128,7 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
 
 **Goal:** get data into and out of MongoDB before any security is layered on.
 
-- [ ] Create `backend/models/Note.js` (no `user` field yet):
+- [✅] Create `backend/models/Note.js` (no `user` field yet):
   ```js
   import mongoose from "mongoose";
 
@@ -143,7 +143,7 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
   const Note = mongoose.model("Note", noteSchema);
   export default Note;
   ```
-- [ ] Create `backend/controllers/noteController.js` with just two functions:
+- [✅] Create `backend/controllers/noteController.js` with just two functions:
   ```js
   import Note from "../models/Note.js";
 
@@ -158,7 +158,7 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
     res.status(201).json(note);
   };
   ```
-- [ ] Create `backend/routes/noteRoutes.js`:
+- [✅] Create `backend/routes/noteRoutes.js`:
   ```js
   import express from "express";
   import { getNotes, createNote } from "../controllers/noteController.js";
@@ -168,27 +168,27 @@ Tools you'll use throughout: **terminal**, a code editor, **curl** or
 
   export default router;
   ```
-- [ ] Update `backend/server.js`:
+- [✅] Update `backend/server.js`:
   ```js
   import noteRoutes from "./routes/noteRoutes.js";
   // ...
   app.use(express.json()); // needed to parse JSON request bodies
   app.use("/api/notes", noteRoutes);
   ```
-- [ ] Run `npm run dev`
-- [ ] **Test create:**
+- [✅] Run `npm run dev`
+- [✅] **Test create:**
   ```bash
   curl -X POST http://localhost:5000/api/notes \
     -H "Content-Type: application/json" \
     -d '{"title":"My first note","content":"Hello world"}'
   ```
   Expect a JSON object back with `_id`, `title`, `content`, `createdAt`, `updatedAt`.
-- [ ] **Test read:**
+- [✅] **Test read:**
   ```bash
   curl http://localhost:5000/api/notes
   ```
   Expect an array containing the note you just created.
-- [ ] **Optional:** open MongoDB Compass or `mongosh`, connect to your DB,
+- [✅] **Optional:** open MongoDB Compass or `mongosh`, connect to your DB,
       and visually confirm the `notes` collection has your document.
 
 ✅ **Checkpoint:** you have a working, but fully public/insecure, notes API.
