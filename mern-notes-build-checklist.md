@@ -200,11 +200,11 @@ This is expected at this stage — don't add auth checks here yet.
 
 **Goal:** get a user stored with a properly hashed password.
 
-- [ ] Install bcrypt
+- [✅] Install bcrypt
   ```bash
   npm install bcryptjs
   ```
-- [ ] Create `backend/models/User.js`:
+- [✅] Create `backend/models/User.js`:
   ```js
   import mongoose from "mongoose";
   import bcrypt from "bcryptjs";
@@ -228,7 +228,7 @@ This is expected at this stage — don't add auth checks here yet.
   const User = mongoose.model("User", userSchema);
   export default User;
   ```
-- [ ] Create `backend/controllers/authController.js` with **registration only**
+- [✅] Create `backend/controllers/authController.js` with **registration only**
       (no token yet — just return the created user):
   ```js
   import User from "../models/User.js";
@@ -252,7 +252,7 @@ This is expected at this stage — don't add auth checks here yet.
     }
   };
   ```
-- [ ] Create `backend/routes/authRoutes.js`:
+- [✅] Create `backend/routes/authRoutes.js`:
   ```js
   import express from "express";
   import { registerUser } from "../controllers/authController.js";
@@ -262,24 +262,24 @@ This is expected at this stage — don't add auth checks here yet.
 
   export default router;
   ```
-- [ ] Update `backend/server.js`:
+- [✅] Update `backend/server.js`:
   ```js
   import authRoutes from "./routes/authRoutes.js";
   // ...
   app.use("/api/auth", authRoutes);
   ```
-- [ ] Run `npm run dev`
-- [ ] **Test:**
+- [✅] Run `npm run dev`
+- [✅] **Test:**
   ```bash
   curl -X POST http://localhost:5000/api/auth/register \
     -H "Content-Type: application/json" \
     -d '{"username":"alice","email":"alice@example.com","password":"password123"}'
   ```
   Expect a user object back (no password field, since we excluded it from the response).
-- [ ] **Verify hashing:** open Compass/mongosh, look at the `users`
+- [✅] **Verify hashing:** open Compass/mongosh, look at the `users`
       collection, confirm the `password` field is a long bcrypt string like
       `$2a$10$...`, NOT `password123`.
-- [ ] **Test duplicate rejection:** run the same curl command again — expect
+- [✅] **Test duplicate rejection:** run the same curl command again — expect
       a 400 error about the user already existing.
 
 ✅ **Checkpoint:** passwords are hashed before storage, duplicates are blocked.
