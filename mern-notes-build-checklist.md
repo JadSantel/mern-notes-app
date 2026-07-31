@@ -290,11 +290,11 @@ This is expected at this stage — don't add auth checks here yet.
 
 **Goal:** verify a password and hand back a signed token.
 
-- [ ] Install jsonwebtoken
+- [✅] Install jsonwebtoken
   ```bash
   npm install jsonwebtoken
   ```
-- [ ] Generate a real secret and add it to `.env`:
+- [✅] Generate a real secret and add it to `.env`:
   ```bash
   node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
   ```
@@ -303,14 +303,14 @@ This is expected at this stage — don't add auth checks here yet.
   JWT_SECRET=<paste the long random string here>
   JWT_EXPIRES_IN=7d
   ```
-- [ ] Add a `matchPassword` method to `backend/models/User.js` (below the
+- [✅] Add a `matchPassword` method to `backend/models/User.js` (below the
       `pre("save")` hook):
   ```js
   userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
   ```
-- [ ] Update `backend/controllers/authController.js`: add a token generator
+- [✅] Update `backend/controllers/authController.js`: add a token generator
       and wire it into both register and a new `loginUser`:
   ```js
   import jwt from "jsonwebtoken";
@@ -347,23 +347,23 @@ This is expected at this stage — don't add auth checks here yet.
     }
   };
   ```
-- [ ] Add the route in `backend/routes/authRoutes.js`:
+- [✅] Add the route in `backend/routes/authRoutes.js`:
   ```js
   import { registerUser, loginUser } from "../controllers/authController.js";
   router.post("/login", loginUser);
   ```
-- [ ] Run `npm run dev`
-- [ ] **Test:**
+- [✅] Run `npm run dev`
+- [✅] **Test:**
   ```bash
   curl -X POST http://localhost:5000/api/auth/login \
     -H "Content-Type: application/json" \
     -d '{"email":"alice@example.com","password":"password123"}'
   ```
   Expect a JSON response including a long `token` string.
-- [ ] **Inspect the token:** copy the token value, paste it into
+- [✅] **Inspect the token:** copy the token value, paste it into
       https://jwt.io — confirm the decoded payload shows
       `{ "id": "...", "iat": ..., "exp": ... }`.
-- [ ] **Test wrong password:** rerun with a bad password, expect 401
+- [✅] **Test wrong password:** rerun with a bad password, expect 401
       `Invalid email or password`.
 
 ✅ **Checkpoint:** login returns a real, decodable JWT.
