@@ -376,7 +376,7 @@ This is expected at this stage — don't add auth checks here yet.
 most important checkpoint in the project — test all three cases below
 before moving on.
 
-- [ ] Create `backend/middleware/authMiddleware.js`:
+- [✅] Create `backend/middleware/authMiddleware.js`:
   ```js
   import jwt from "jsonwebtoken";
   import User from "../models/User.js";
@@ -405,7 +405,7 @@ before moving on.
 
   export default protect;
   ```
-- [ ] Add a throwaway protected route to try it out — in
+- [✅] Add a throwaway protected route to try it out — in
       `backend/controllers/authController.js`:
   ```js
   export const getMe = async (req, res) => {
@@ -418,18 +418,18 @@ before moving on.
   import { registerUser, loginUser, getMe } from "../controllers/authController.js";
   router.get("/me", protect, getMe);
   ```
-- [ ] Run `npm run dev`
-- [ ] **Test 1 — no token:**
+- [✅] Run `npm run dev`
+- [✅] **Test 1 — no token:**
   ```bash
   curl http://localhost:5000/api/auth/me
   ```
   Expect: 401 `Not authorized, no token provided`
-- [ ] **Test 2 — garbage token:**
+- [✅] **Test 2 — garbage token:**
   ```bash
   curl http://localhost:5000/api/auth/me -H "Authorization: Bearer garbage.token.here"
   ```
   Expect: 401 `Not authorized, token invalid or expired`
-- [ ] **Test 3 — real token:** log in again to get a fresh token, then:
+- [✅] **Test 3 — real token:** log in again to get a fresh token, then:
   ```bash
   curl http://localhost:5000/api/auth/me -H "Authorization: Bearer <paste real token>"
   ```
