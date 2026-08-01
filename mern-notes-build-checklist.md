@@ -444,7 +444,7 @@ this is rock solid — everything after this depends on it.
 
 **Goal:** connect Phase 2 (notes) and Phase 5 (auth) so notes belong to users.
 
-- [ ] Update `backend/models/Note.js` to add the ownership field:
+- [✅] Update `backend/models/Note.js` to add the ownership field:
   ```js
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -452,7 +452,7 @@ this is rock solid — everything after this depends on it.
     ref: "User",
   },
   ```
-- [ ] Rewrite `backend/controllers/noteController.js` to filter/stamp by
+- [✅] Rewrite `backend/controllers/noteController.js` to filter/stamp by
       `req.user._id` on every operation. Full CRUD set:
   ```js
   import Note from "../models/Note.js";
@@ -492,7 +492,7 @@ this is rock solid — everything after this depends on it.
     res.json({ message: "Note deleted", id: req.params.id });
   };
   ```
-- [ ] Update `backend/routes/noteRoutes.js` to require auth on everything:
+- [✅] Update `backend/routes/noteRoutes.js` to require auth on everything:
   ```js
   import express from "express";
   import protect from "../middleware/authMiddleware.js";
@@ -508,10 +508,10 @@ this is rock solid — everything after this depends on it.
 
   export default router;
   ```
-- [ ] Run `npm run dev`
-- [ ] **Test — register two separate users** (alice and bob), log in as
+- [✅] Run `npm run dev`
+- [✅] **Test — register two separate users** (alice and bob), log in as
       each, save both tokens.
-- [ ] **Test — create a note as alice:**
+- [✅] **Test — create a note as alice:**
   ```bash
   curl -X POST http://localhost:5000/api/notes \
     -H "Content-Type: application/json" \
@@ -519,19 +519,19 @@ this is rock solid — everything after this depends on it.
     -d '{"title":"Alice secret note","content":"shh"}'
   ```
   Copy the returned `_id`.
-- [ ] **Test — bob tries to read it directly:**
+- [✅] **Test — bob tries to read it directly:**
   ```bash
   curl http://localhost:5000/api/notes/<alice_note_id> \
     -H "Authorization: Bearer <bob_token>"
   ```
   Expect: 404 `Note not found` (not alice's note content)
-- [ ] **Test — bob tries to delete it:**
+- [✅] **Test — bob tries to delete it:**
   ```bash
   curl -X DELETE http://localhost:5000/api/notes/<alice_note_id> \
     -H "Authorization: Bearer <bob_token>"
   ```
   Expect: 404, and confirm in Compass/mongosh that the note still exists.
-- [ ] **Test — alice can still read/update/delete her own note** using her
+- [✅] **Test — alice can still read/update/delete her own note** using her
       own token — expect success.
 
 ✅ **Checkpoint:** ownership is enforced server-side. This is the core
