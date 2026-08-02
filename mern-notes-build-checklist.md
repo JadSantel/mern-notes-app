@@ -582,18 +582,18 @@ past this point is frontend work consuming a trustworthy API.
 ## Phase 8 — Frontend, in order
 
 ### 8a. Scaffold the project
-- [ ] From the project root (one level above `backend/`):
+- [✅] From the project root (one level above `backend/`):
   ```bash
   npm create vite@latest frontend -- --template react
   cd frontend
   npm install
   npm install axios react-router-dom
   ```
-- [ ] Run `npm run dev`, open the printed URL, confirm the default Vite +
+- [✅] Run `npm run dev`, open the printed URL, confirm the default Vite +
       React page loads.
 
 ### 8b. Bare axios instance (no interceptors yet)
-- [ ] Create `frontend/src/api/axios.js`:
+- [✅] Create `frontend/src/api/axios.js`:
   ```js
   import axios from "axios";
 
@@ -605,10 +605,10 @@ past this point is frontend work consuming a trustworthy API.
   ```
 
 ### 8c. Login/Register pages — confirm you can get a token
-- [ ] Build a minimal `Login.jsx` that calls
+- [✅] Build a minimal `Login.jsx` that calls
       `api.post("/auth/login", { email, password })` and
       `console.log`s the response.
-- [ ] Run both servers (backend on 5000, frontend on 5173), submit the
+- [✅] Run both servers (backend on 5000, frontend on 5173), submit the
       login form with a real account, and **confirm you see the token
       logged in the browser console.**
 
