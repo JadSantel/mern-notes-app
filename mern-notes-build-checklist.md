@@ -542,7 +542,7 @@ this passes cleanly.
 
 ## Phase 7 — Error handling & polish
 
-- [ ] Add CORS so the frontend (different port) can call this API:
+- [✅] Add CORS so the frontend (different port) can call this API:
   ```bash
   npm install cors
   ```
@@ -551,27 +551,27 @@ this passes cleanly.
   import cors from "cors";
   app.use(cors());
   ```
-- [ ] Add a 404 handler (after all routes) in `server.js`:
+- [✅] Add a 404 handler (after all routes) in `server.js`:
   ```js
   app.use((req, res) => {
     res.status(404).json({ message: `Route not found: ${req.originalUrl}` });
   });
   ```
-- [ ] Add a global error handler (very bottom of `server.js`, 4 arguments):
+- [✅] Add a global error handler (very bottom of `server.js`, 4 arguments):
   ```js
   app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: "Something went wrong on the server" });
   });
   ```
-- [ ] Add a simple request logger for visibility while developing:
+- [✅] Add a simple request logger for visibility while developing:
   ```js
   app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} ${req.method} ${req.originalUrl}`);
     next();
   });
   ```
-- [ ] **Test:** hit a nonexistent route (`curl http://localhost:5000/api/nope`)
+- [✅] **Test:** hit a nonexistent route (`curl http://localhost:5000/api/nope`)
       and confirm you get your custom 404 JSON, not an HTML error page.
 
 ✅ **Checkpoint:** backend is complete and production-shaped. Everything
