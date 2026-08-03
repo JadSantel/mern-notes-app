@@ -648,9 +648,9 @@ past this point is frontend work consuming a trustworthy API.
       get bounced to `/login`.
 
 ### 8g. Dashboard — read-only first
-- [ ] Build `Dashboard.jsx` that only fetches and lists notes
+- [✅] Build `Dashboard.jsx` that only fetches and lists notes
       (`api.get("/notes")`) — no create/edit/delete yet.
-- [ ] **Test:** log in, confirm your existing notes (created via curl in
+- [✅] **Test:** log in, confirm your existing notes (created via curl in
       Phase 6) show up on screen.
 
 ### 8h. Add create, then update, then delete
