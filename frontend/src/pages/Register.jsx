@@ -7,7 +7,7 @@ export default function Register({ onSwitch }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { register } = useAuth();
+  const { register = async () => {} } = useAuth() ?? {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();

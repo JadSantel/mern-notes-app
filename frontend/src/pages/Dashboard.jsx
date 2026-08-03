@@ -6,7 +6,7 @@ import NoteItem from "../components/NoteItem";
 import { useAuth } from "../context/AuthContext";
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user = null, logout = () => {} } = useAuth() ?? {};
   const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);

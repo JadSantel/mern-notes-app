@@ -662,9 +662,9 @@ past this point is frontend work consuming a trustworthy API.
       deleting.
 
 ### 8i. Handle token expiry gracefully
-- [ ] Add a response interceptor in `axios.js` that clears storage and
+- [✅] Add a response interceptor in `axios.js` that clears storage and
       redirects to `/login` on a 401.
-- [ ] **Test:** temporarily set `JWT_EXPIRES_IN=10s` in the backend `.env`,
+- [✅] **Test:** temporarily set `JWT_EXPIRES_IN=10s` in the backend `.env`,
       restart the backend, log in on the frontend, wait 10+ seconds, then
       try loading/creating a note — confirm you get bounced to `/login`
       automatically. **Remember to set `JWT_EXPIRES_IN` back to `7d`

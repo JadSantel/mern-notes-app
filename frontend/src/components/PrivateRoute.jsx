@@ -2,7 +2,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function PrivateRoute() {
-  const { user, loading } = useAuth();
+  const auth = useAuth();
+  const { user, loading } = auth;
 
   if (loading) {
     return <p>Loading...</p>;
