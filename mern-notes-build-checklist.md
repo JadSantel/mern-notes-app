@@ -639,12 +639,12 @@ past this point is frontend work consuming a trustworthy API.
       instead of calling `api` directly.
 
 ### 8f. Routing + route guard
-- [ ] Install is already done (`react-router-dom`).
-- [ ] Create `frontend/src/components/PrivateRoute.jsx` that redirects to
+- [✅] Install is already done (`react-router-dom`).
+- [✅] Create `frontend/src/components/PrivateRoute.jsx` that redirects to
       `/login` if `user` is null.
-- [ ] Wire up `BrowserRouter`/`Routes`/`Route` in `App.jsx` for `/login`,
+- [✅] Wire up `BrowserRouter`/`Routes`/`Route` in `App.jsx` for `/login`,
       `/register`, and `/` (protected).
-- [ ] **Test:** while logged out, try visiting `/` directly — confirm you
+- [✅] **Test:** while logged out, try visiting `/` directly — confirm you
       get bounced to `/login`.
 
 ### 8g. Dashboard — read-only first
