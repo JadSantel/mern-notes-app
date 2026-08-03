@@ -630,12 +630,12 @@ past this point is frontend work consuming a trustworthy API.
       being attached automatically now.
 
 ### 8e. Auth context (global logged-in state)
-- [ ] Create `frontend/src/context/AuthContext.jsx` with `login`,
+- [✅] Create `frontend/src/context/AuthContext.jsx` with `login`,
       `register`, `logout`, and a `user` state, backed by `localStorage`
       (see reference implementation from earlier if you want the full
       version, including the startup `/auth/me` verification check).
-- [ ] Wrap `<App />` in `<AuthProvider>` inside `main.jsx` or `App.jsx`.
-- [ ] Rebuild `Login.jsx`/`Register.jsx` to call `useAuth().login(...)`
+- [✅] Wrap `<App />` in `<AuthProvider>` inside `main.jsx` or `App.jsx`.
+- [✅] Rebuild `Login.jsx`/`Register.jsx` to call `useAuth().login(...)`
       instead of calling `api` directly.
 
 ### 8f. Routing + route guard

@@ -1,37 +1,29 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { login } = useAuth();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await login(email, password);
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    }
+  };
 
-        try {
-            const response = await api.post("/auth/login", {email, password});
-            console.log("Login response:", response.data);
-            localStorage.setItem("token", response.data.token);
-        } catch (err) {
-            console.error("Login failed:", err.response?.data || err.message );
-        }
-    };
-
-    return (
+  return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <button type="submit">Log In</button>
     </form>
-    );
+  );
 }
