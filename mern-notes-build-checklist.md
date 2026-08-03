@@ -613,11 +613,11 @@ past this point is frontend work consuming a trustworthy API.
       logged in the browser console.**
 
 ### 8d. Persist the token and auto-attach it
-- [ ] In `Login.jsx`, after a successful login:
+- [✅] In `Login.jsx`, after a successful login:
   ```js
   localStorage.setItem("token", data.token);
   ```
-- [ ] Add a request interceptor to `frontend/src/api/axios.js`:
+- [✅] Add a request interceptor to `frontend/src/api/axios.js`:
   ```js
   api.interceptors.request.use((config) => {
     const token = localStorage.getItem("token");
@@ -625,7 +625,7 @@ past this point is frontend work consuming a trustworthy API.
     return config;
   });
   ```
-- [ ] **Test:** manually call `api.get("/auth/me")` (e.g. temporarily in a
+- [✅] **Test:** manually call `api.get("/auth/me")` (e.g. temporarily in a
       `useEffect`) and confirm it returns your user — proving the token is
       being attached automatically now.
 
