@@ -654,11 +654,11 @@ past this point is frontend work consuming a trustworthy API.
       Phase 6) show up on screen.
 
 ### 8h. Add create, then update, then delete
-- [ ] Add `NoteForm.jsx`, wire its `onSave` to `api.post("/notes", fields)`
+- [✅] Add `NoteForm.jsx`, wire its `onSave` to `api.post("/notes", fields)`
       in `Dashboard.jsx`. Test creating a note through the UI.
-- [ ] Add `NoteItem.jsx` with an edit mode that reuses `NoteForm`, wire to
+- [✅] Add `NoteItem.jsx` with an edit mode that reuses `NoteForm`, wire to
       `api.put(\`/notes/${id}\`, fields)`. Test editing.
-- [ ] Add a delete button, wire to `api.delete(\`/notes/${id}\`)`. Test
+- [✅] Add a delete button, wire to `api.delete(\`/notes/${id}\`)`. Test
       deleting.
 
 ### 8i. Handle token expiry gracefully
