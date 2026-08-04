@@ -695,7 +695,7 @@ feedback both work, and the underlying login/register logic is untouched.
 **Goal:** replace the hardcoded middle panel from Phase 2 with a real list
 fetched from the API. No search or tags yet — just fetch, display, select.
 
-- [ ] Create `frontend/src/api/notesApi.js` — wraps every note endpoint in
+- [✅] Create `frontend/src/api/notesApi.js` — wraps every note endpoint in
       a named function so components never call raw `api.get(...)` directly:
   ```js
   import api from "./axios";
@@ -726,7 +726,7 @@ fetched from the API. No search or tags yet — just fetch, display, select.
   };
   ```
 
-- [ ] Create `frontend/src/components/NoteCard.jsx` (no tags/search
+- [✅] Create `frontend/src/components/NoteCard.jsx` (no tags/search
       highlighting yet — just the card):
   ```jsx
   function formatRelativeDate(dateString) {
@@ -762,7 +762,7 @@ fetched from the API. No search or tags yet — just fetch, display, select.
   }
   ```
 
-- [ ] Create `frontend/src/components/NoteList.jsx` (no search yet):
+- [✅] Create `frontend/src/components/NoteList.jsx` (no search yet):
   ```jsx
   import { Plus, StickyNote } from "lucide-react";
   import NoteCard from "./NoteCard";
@@ -798,7 +798,7 @@ fetched from the API. No search or tags yet — just fetch, display, select.
   }
   ```
 
-- [ ] Update `frontend/src/pages/Dashboard.jsx` to fetch real notes and
+- [✅] Update `frontend/src/pages/Dashboard.jsx` to fetch real notes and
       wire the list in:
   ```jsx
   import { useState, useEffect } from "react";
@@ -861,7 +861,7 @@ fetched from the API. No search or tags yet — just fetch, display, select.
   }
   ```
 
-- [ ] **Test:** log in, confirm any notes you created earlier (via curl or
+- [✅] **Test:** log in, confirm any notes you created earlier (via curl or
       the old plain-CSS UI) now appear as styled cards. Click the `+`
       button, confirm a new "Untitled" note appears at the top of the list
       and a success toast pops up.
