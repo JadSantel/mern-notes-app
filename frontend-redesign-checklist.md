@@ -469,7 +469,7 @@ routing and a real (if empty) Sidebar, before any note data exists.
 still just calling `useAuth().login()` / `useAuth().register()` — only the
 presentation does.
 
-- [ ] Rewrite `frontend/src/pages/Login.jsx`:
+- [✅] Rewrite `frontend/src/pages/Login.jsx`:
   ```jsx
   import { useState } from "react";
   import { useNavigate, Link } from "react-router-dom";
@@ -564,7 +564,7 @@ presentation does.
   `toast.success`/`toast.error` show the little popup notifications
   instead of inline `<p className="error">`.
 
-- [ ] Rewrite `frontend/src/pages/Register.jsx` the same way, with client-side
+- [✅] Rewrite `frontend/src/pages/Register.jsx` the same way, with client-side
       validation (empty fields, password length, password match) checked
       BEFORE hitting the network:
   ```jsx
@@ -679,7 +679,7 @@ presentation does.
   what the API really accepts. Labeling it "Name" would look nicer but lie
   about what's being stored.
 
-- [ ] **Test:** submit Login with a wrong password — confirm the card
+- [✅] **Test:** submit Login with a wrong password — confirm the card
       shakes and a red toast appears. Submit Register with mismatched
       passwords — confirm the "Passwords don't match" message appears
       under the field WITHOUT a network request firing (check the Network
