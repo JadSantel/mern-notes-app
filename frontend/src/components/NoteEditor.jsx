@@ -1,13 +1,27 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
+import { Trash2 } from "lucide-react";
+import ConfirmModal from "./ConfirmModal";
 
 const AUTOSAVE_DELAY_MS = 800;
 
-export default function NoteEditor({ note, onUpdate }) {
+export default function NoteEditor({ note, onUpdate, onDelete }) {
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content || "");
     const [saveStatus, setSaveStatus] = useState("saved"); // "saved" | "saving" | "error"
+    const [confirmOpen, setConfirmOpen] = useState(false);
+
+    const handleDeleteConfirmed = async () => {
+        try {
+            await onDelete(note._id);
+            toast.success("Note deleted");
+        } catch (err) {
+            toast.error(err.response?.data?.message || "Failed to delete note");
+        } finally {
+            setConfirmOpen(false);
+        }
+    };
 
     // Reset local state whenever a DIFFERENT note is selected
     useEffect(() => {
@@ -61,6 +75,14 @@ export default function NoteEditor({ note, onUpdate }) {
                             {saveStatus === "error" && "Failed to save"}
                         </motion.span>
                     </AnimatePresence>
+                    <button
+                        type="button"
+                        onClick={() => setConfirmOpen(true)}
+                        aria-label="Delete note"
+                        className="text-light-text-secondary hover:text-danger"
+                    >
+                        <Trash2 size={18} />
+                    </button>
                 </div>
                 <p className="text-xs uppercase tracking-wide text-light-text-secondary">
                     Last edited {new Date(note.updatedAt).toLocaleString()}
@@ -72,6 +94,13 @@ export default function NoteEditor({ note, onUpdate }) {
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Start writing..."
                 className="flex-1 resize-none bg-transparent p-8 font-mono text-sm leading-relaxed text-light-text dark:text-dark-text placeholder:text-light-text-secondary focus:outline-none"
+            />
+            <ConfirmModal
+                isOpen={confirmOpen}
+                title="Delete this note?"
+                description="This can't be undone."
+                onConfirm={handleDeleteConfirmed}
+                onCancel={() => setConfirmOpen(false)}
             />
         </div>
     );

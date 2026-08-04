@@ -47,6 +47,17 @@ export default function Dashboard() {
     return updated;
   };
 
+  const handleDeleteNote = async (id) => {
+    await notesApi.deleteNote(id);
+    setNotes((prev) => {
+      const remaining = prev.filter((n) => n._id !== id);
+      if (id === selectedNoteId) {
+        setSelectedNoteId(remaining[0]?._id || null);
+      }
+      return remaining;
+    });
+  };
+
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-dark-bg">
@@ -60,7 +71,7 @@ export default function Dashboard() {
       <Sidebar noteCount={notes.length} />
       <NoteList notes={notes} selectedNoteId={selectedNoteId} onSelectNote={setSelectedNoteId} onCreateNote={handleCreateNote} />
       {selectedNote ? (
-        <NoteEditor key={selectedNote._id} note={selectedNote} onUpdate={handleUpdateNote} />
+        <NoteEditor key={selectedNote._id} note={selectedNote} onUpdate={handleUpdateNote} onDelete={handleDeleteNote} />
       ) : (
         <div className="flex flex-1 items-center justify-center bg-light-bg dark:bg-dark-bg">
           <EmptyState icon={FileText} title="No note selected" description="Pick a note from the list, or create a new one." />

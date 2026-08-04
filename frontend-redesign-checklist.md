@@ -1008,7 +1008,7 @@ behavior.
 **Goal:** add a delete flow with a proper confirmation dialog instead of
 `window.confirm()`.
 
-- [ ] Create `frontend/src/components/ConfirmModal.jsx`:
+- [✅] Create `frontend/src/components/ConfirmModal.jsx`:
   ```jsx
   import { useEffect } from "react";
   import { motion, AnimatePresence } from "framer-motion";
@@ -1066,7 +1066,7 @@ behavior.
   the inner div stops a click inside the modal from also triggering the
   backdrop's `onClick`.
 
-- [ ] Add delete UI to `NoteEditor.jsx` — a trash icon that opens the
+- [✅] Add delete UI to `NoteEditor.jsx` — a trash icon that opens the
       modal, plus the `onDelete` prop:
   ```jsx
   // add imports
@@ -1104,7 +1104,7 @@ behavior.
     />
   ```
 
-- [ ] Add `handleDeleteNote` to `Dashboard.jsx` and pass it down:
+- [✅] Add `handleDeleteNote` to `Dashboard.jsx` and pass it down:
   ```jsx
   const handleDeleteNote = async (id) => {
     await notesApi.deleteNote(id);
@@ -1121,7 +1121,7 @@ behavior.
   <NoteEditor key={selectedNote._id} note={selectedNote} onUpdate={handleUpdateNote} onDelete={handleDeleteNote} />
   ```
 
-- [ ] **Test:** click the trash icon, confirm the modal scales in with a
+- [✅] **Test:** click the trash icon, confirm the modal scales in with a
       dark backdrop. Press Escape — confirm it closes without deleting.
       Reopen it, click the backdrop (not the modal) — confirm it closes.
       Reopen it and click Delete — confirm the note disappears from the
