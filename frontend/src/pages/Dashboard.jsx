@@ -6,6 +6,7 @@ import NoteList from "../components/NoteList";
 import EmptyState from "../components/EmptyState";
 import Spinner from "../components/Spinner";
 import { FileText } from "lucide-react";
+import NoteEditor from "../components/NoteEditor";
 
 export default function Dashboard() {
   const [notes, setNotes] = useState([]);
@@ -38,6 +39,14 @@ export default function Dashboard() {
     }
   };
 
+  const selectedNote = notes.find((n) => n._id === selectedNoteId) || null;
+
+  const handleUpdateNote = async (id, fields) => {
+    const updated = await notesApi.updateNote(id, fields);
+    setNotes((prev) => prev.map((n) => (n._id === id ? updated : n)));
+    return updated;
+  };
+
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-dark-bg">
@@ -50,9 +59,13 @@ export default function Dashboard() {
     <div className="flex h-screen overflow-hidden">
       <Sidebar noteCount={notes.length} />
       <NoteList notes={notes} selectedNoteId={selectedNoteId} onSelectNote={setSelectedNoteId} onCreateNote={handleCreateNote} />
-      <div className="flex flex-1 items-center justify-center bg-light-bg dark:bg-dark-bg">
-        <EmptyState icon={FileText} title="No note selected" description="Pick a note from the list, or create a new one." />
-      </div>
+      {selectedNote ? (
+        <NoteEditor key={selectedNote._id} note={selectedNote} onUpdate={handleUpdateNote} />
+      ) : (
+        <div className="flex flex-1 items-center justify-center bg-light-bg dark:bg-dark-bg">
+          <EmptyState icon={FileText} title="No note selected" description="Pick a note from the list, or create a new one." />
+        </div>
+      )}
     </div>
   );
 }

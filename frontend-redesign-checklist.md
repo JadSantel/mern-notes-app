@@ -876,7 +876,7 @@ hardcoded placeholder text.
 **Goal:** replace the right-panel empty state with a real editor, with
 debounced autosave. No tags yet — just title + content.
 
-- [ ] Create `frontend/src/components/NoteEditor.jsx`:
+- [✅] Create `frontend/src/components/NoteEditor.jsx`:
   ```jsx
   import { useState, useEffect, useRef } from "react";
   import { motion, AnimatePresence } from "framer-motion";
@@ -963,7 +963,7 @@ debounced autosave. No tags yet — just title + content.
   800ms timer via the cleanup function, so a save only actually fires
   once you stop typing.
 
-- [ ] Update `Dashboard.jsx` to compute the selected note and render
+- [✅] Update `Dashboard.jsx` to compute the selected note and render
       `NoteEditor` in place of the always-empty state:
   ```jsx
   // add these imports
@@ -991,7 +991,7 @@ debounced autosave. No tags yet — just title + content.
   `NoteEditor` whenever you select a different note, which resets all of
   its internal state cleanly.
 
-- [ ] **Test:** select a note, type in the title — watch the indicator
+- [✅] **Test:** select a note, type in the title — watch the indicator
       cycle **Saving… → Saved ✓** after you stop typing, with no save
       button anywhere. Open the Network tab, confirm exactly ONE `PUT
       /api/notes/:id` request fires ~800ms after you stop typing, not one
