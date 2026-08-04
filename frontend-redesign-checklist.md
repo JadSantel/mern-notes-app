@@ -236,7 +236,7 @@ class mechanism is wired up (even though nothing uses it visibly yet).
 content, before wiring any real data to it. This isolates layout bugs
 (flexbox, widths, overflow) from data bugs.
 
-- [ ] Update the route path in `frontend/src/App.jsx` — the design uses
+- [✅] Update the route path in `frontend/src/App.jsx` — the design uses
       `/dashboard` instead of `/`:
   ```jsx
   import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -269,7 +269,7 @@ content, before wiring any real data to it. This isolates layout bugs
   }
   ```
 
-- [ ] Create the small building-block components other components will
+- [✅] Create the small building-block components other components will
       depend on. `frontend/src/components/Spinner.jsx`:
   ```jsx
   export default function Spinner({ size = 16, className = "" }) {
@@ -289,7 +289,7 @@ content, before wiring any real data to it. This isolates layout bugs
   }
   ```
 
-- [ ] `frontend/src/components/Avatar.jsx`:
+- [✅] `frontend/src/components/Avatar.jsx`:
   ```jsx
   function getInitials(name = "") {
     const parts = name.trim().split(/\s+/);
@@ -311,7 +311,7 @@ content, before wiring any real data to it. This isolates layout bugs
   }
   ```
 
-- [ ] `frontend/src/components/EmptyState.jsx` (reused everywhere something
+- [✅] `frontend/src/components/EmptyState.jsx` (reused everywhere something
       is empty — no notes, no search results, nothing selected):
   ```jsx
   export default function EmptyState({ icon: Icon, title, description }) {
@@ -333,7 +333,7 @@ content, before wiring any real data to it. This isolates layout bugs
   }
   ```
 
-- [ ] `frontend/src/components/ThemeToggle.jsx` (the button; wired to the
+- [✅] `frontend/src/components/ThemeToggle.jsx` (the button; wired to the
       context you already built in Phase 1):
   ```jsx
   import { Sun, Moon } from "lucide-react";
@@ -354,7 +354,7 @@ content, before wiring any real data to it. This isolates layout bugs
   }
   ```
 
-- [ ] Create `frontend/src/components/Sidebar.jsx` — the dark, left-most
+- [✅] Create `frontend/src/components/Sidebar.jsx` — the dark, left-most
       panel. It's mostly static at this point (tags list comes in Phase 8):
   ```jsx
   import { StickyNote, Settings, LogOut, FolderClosed } from "lucide-react";
@@ -429,7 +429,7 @@ content, before wiring any real data to it. This isolates layout bugs
   rather than building a button that looks clickable but does nothing —
   it becomes real in Phase 12 if you build it.
 
-- [ ] Rewrite `frontend/src/pages/Dashboard.jsx` with a hardcoded skeleton
+- [✅] Rewrite `frontend/src/pages/Dashboard.jsx` with a hardcoded skeleton
       (no API calls yet):
   ```jsx
   import Sidebar from "../components/Sidebar";
@@ -451,7 +451,7 @@ content, before wiring any real data to it. This isolates layout bugs
   }
   ```
 
-- [ ] **Test:** log in, land on `/dashboard`, confirm you see three
+- [✅] **Test:** log in, land on `/dashboard`, confirm you see three
       distinct panels — dark sidebar, dark placeholder middle panel, and a
       light-colored right panel with the empty state centered in it. Resize
       the browser window and confirm the layout doesn't break (it won't be
