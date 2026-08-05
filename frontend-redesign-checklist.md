@@ -1495,7 +1495,7 @@ in Phase 1 — this phase is just making sure every component actually USES
 `dark:` classes correctly, since the toggle button in `Sidebar.jsx` already
 exists from Phase 2.
 
-- [ ] Audit each component you've built and confirm light-panel elements
+- [] Audit each component you've built and confirm light-panel elements
       (`NoteEditor`, `ConfirmModal`, `EmptyState`) have a `dark:` variant
       alongside their light-mode color, e.g.:
   ```

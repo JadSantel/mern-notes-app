@@ -18,7 +18,7 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
     const [showTagInput, setShowTagInput] = useState(false);
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content || "");
-    const [saveStatus, setSaveStatus] = useState("saved"); // "saved" | "saving" | "error"
+    const [saveStatus, setSaveStatus] = useState("saved");
     const [confirmOpen, setConfirmOpen] = useState(false);
 
     const handleDeleteConfirmed = async () => {
@@ -50,7 +50,6 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
         setTags((prevTags) => prevTags.filter((tag) => tag !== tagToRemove));
     };
 
-    // Reset local state whenever a DIFFERENT note is selected
     /* eslint-disable react-hooks/set-state-in-effect */
     useEffect(() => {
         setTitle(note.title);
@@ -90,15 +89,15 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
     /* eslint-enable react-hooks/set-state-in-effect */
 
     return (
-        <div className="flex h-full flex-1 flex-col bg-light-bg dark:bg-dark-bg">
-            <div className="border-b border-light-border dark:border-dark-border p-8 pb-4">
+        <div className="flex h-full flex-1 flex-col bg-light-bg transition-colors dark:bg-dark-bg">
+            <div className="border-b border-light-border p-8 pb-4 dark:border-dark-border">
                 <div className="mb-2 flex items-start justify-between gap-4">
                     <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Untitled"
-                        className="w-full bg-transparent text-xl font-bold text-light-text dark:text-dark-text placeholder:text-light-text-secondary focus:outline-none"
+                        className="w-full bg-transparent text-xl font-bold text-light-text placeholder:text-light-text-secondary focus:outline-none dark:text-dark-text dark:placeholder:text-dark-text-placeholder"
                     />
                     <AnimatePresence mode="wait">
                         <motion.span
@@ -106,10 +105,10 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="shrink-0 text-xs font-medium uppercase tracking-wide text-light-text-secondary"
+                            className="shrink-0 text-xs font-medium uppercase tracking-wide text-light-text-secondary dark:text-dark-text-secondary"
                         >
-                            {saveStatus === "saving" && "Saving…"}
-                            {saveStatus === "saved" && "Saved ✓"}
+                            {saveStatus === "saving" && "Saving..."}
+                            {saveStatus === "saved" && "Saved"}
                             {saveStatus === "error" && "Failed to save"}
                         </motion.span>
                     </AnimatePresence>
@@ -117,12 +116,12 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
                         type="button"
                         onClick={() => setConfirmOpen(true)}
                         aria-label="Delete note"
-                        className="text-light-text-secondary hover:text-danger"
+                        className="text-light-text-secondary hover:text-danger dark:text-dark-text-secondary dark:hover:text-danger"
                     >
                         <Trash2 size={18} />
                     </button>
                 </div>
-                <p className="text-xs uppercase tracking-wide text-light-text-secondary">
+                <p className="text-xs uppercase tracking-wide text-light-text-secondary dark:text-dark-text-secondary">
                     Last edited {new Date(note.updatedAt).toLocaleString()}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -152,7 +151,7 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
                                 }
                             }}
                             placeholder="New tag"
-                            className="min-w-[180px] flex-1 rounded-lg border border-light-border bg-transparent px-3 py-2 text-sm text-light-text dark:border-dark-border dark:text-dark-text focus:outline-none"
+                            className="min-w-[180px] flex-1 rounded-lg border border-light-border bg-transparent px-3 py-2 text-sm text-light-text placeholder:text-light-text-secondary focus:outline-none dark:border-dark-border dark:text-dark-text dark:placeholder:text-dark-text-placeholder"
                         />
                         <button
                             type="button"
@@ -167,7 +166,7 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
                                 setTagInput("");
                                 setShowTagInput(false);
                             }}
-                            className="rounded-lg border border-light-border bg-transparent px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-light-text-secondary transition hover:border-accent-orange hover:text-accent-orange dark:border-dark-border"
+                            className="rounded-lg border border-light-border bg-transparent px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-light-text-secondary transition hover:border-accent-orange hover:text-accent-orange dark:border-dark-border dark:text-dark-text-secondary"
                         >
                             Cancel
                         </button>
@@ -179,7 +178,7 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Start writing..."
-                className="flex-1 resize-none bg-transparent p-8 font-mono text-sm leading-relaxed text-light-text dark:text-dark-text placeholder:text-light-text-secondary focus:outline-none"
+                className="flex-1 resize-none bg-transparent p-8 font-mono text-sm leading-relaxed text-light-text placeholder:text-light-text-secondary focus:outline-none dark:text-dark-text dark:placeholder:text-dark-text-placeholder"
             />
             <ConfirmModal
                 isOpen={confirmOpen}
