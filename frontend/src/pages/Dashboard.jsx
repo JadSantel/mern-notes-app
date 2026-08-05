@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import toast from "react-hot-toast";
 import * as notesApi from "../api/notesApi";
 import Sidebar from "../components/Sidebar";
@@ -9,9 +9,29 @@ import { FileText } from "lucide-react";
 import NoteEditor from "../components/NoteEditor";
 
 export default function Dashboard() {
+  const [selectedTag, setSelectedTag] = useState(null);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
+
+  const allTags = useMemo(() => {
+    const tagSet = new Set();
+    notes.forEach((note) => (note.tags || []).forEach((t) => tagSet.add(t)));
+    return Array.from(tagSet).sort();
+  }, [notes]);
+  
+  const visibleNotes = selectedTag ? notes.filter((n) => n.tags?.includes(selectedTag)) : notes;
+
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (visibleNotes.length === 0) {
+      setSelectedNoteId(null);
+    } else if (!visibleNotes.some((n) => n._id === selectedNoteId)) {
+      setSelectedNoteId(visibleNotes[0]._id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTag, notes]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -30,7 +50,11 @@ export default function Dashboard() {
 
   const handleCreateNote = async () => {
     try {
-      const newNote = await notesApi.createNote({ title: "Untitled", content: "" });
+      const newNote = await notesApi.createNote({
+        title: "Untitled",
+        content: "",
+        tags: selectedTag ? [selectedTag] : [],
+      });
       setNotes((prev) => [newNote, ...prev]);
       setSelectedNoteId(newNote._id);
       toast.success("Note created");
@@ -68,8 +92,19 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <Sidebar noteCount={notes.length} />
-      <NoteList notes={notes} selectedNoteId={selectedNoteId} onSelectNote={setSelectedNoteId} onCreateNote={handleCreateNote} />
+      <Sidebar
+        tags={allTags}
+        selectedTag={selectedTag}
+        onSelectTag={setSelectedTag}
+        onShowAll={() => setSelectedTag(null)}
+        noteCount={notes.length}
+      />
+      <NoteList
+        notes={visibleNotes}
+        selectedNoteId={selectedNoteId}
+        onSelectNote={setSelectedNoteId}
+        onCreateNote={handleCreateNote}
+      />
       {selectedNote ? (
         <NoteEditor key={selectedNote._id} note={selectedNote} onUpdate={handleUpdateNote} onDelete={handleDeleteNote} />
       ) : (

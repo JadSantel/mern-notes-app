@@ -1274,7 +1274,7 @@ again — the current `Note` schema has no `tags` field, so without this
 change, any `tags` sent from the frontend gets silently dropped by
 Mongoose.
 
-- [ ] Update `backend/models/Note.js` to add the field:
+- [✅] Update `backend/models/Note.js` to add the field:
   ```js
   tags: {
     type: [String],
@@ -1283,7 +1283,7 @@ Mongoose.
   ```
   (add this inside the schema definition, alongside `title` and `content`)
 
-- [ ] Update `backend/controllers/noteController.js` — both `createNote`
+- [✅] Update `backend/controllers/noteController.js` — both `createNote`
       and `updateNote` need to accept and pass through `tags`:
   ```js
   export const createNote = async (req, res) => {
@@ -1313,7 +1313,7 @@ Mongoose.
   };
   ```
 
-- [ ] Restart the backend (`npm run dev` in `backend/`), and **test with
+- [✅] Restart the backend (`npm run dev` in `backend/`), and **test with
       curl before touching the frontend at all** — isolate the backend
       change from the frontend change:
   ```bash
@@ -1324,7 +1324,7 @@ Mongoose.
   ```
   Confirm the response includes `"tags": ["work", "urgent"]`.
 
-- [ ] Create `frontend/src/components/TagChip.jsx`:
+- [✅] Create `frontend/src/components/TagChip.jsx`:
   ```jsx
   import { X } from "lucide-react";
   import { motion } from "framer-motion";
@@ -1348,7 +1348,7 @@ Mongoose.
   }
   ```
 
-- [ ] Add tag display to `NoteCard.jsx`:
+- [✅] Add tag display to `NoteCard.jsx`:
   ```jsx
   // add import
   import TagChip from "./TagChip";
@@ -1366,7 +1366,7 @@ Mongoose.
   </div>
   ```
 
-- [ ] Add tag editing to `NoteEditor.jsx` — local `tags` state, add/remove
+- [✅] Add tag editing to `NoteEditor.jsx` — local `tags` state, add/remove
       handlers, and include `tags` in the autosave payload:
   ```jsx
   // add imports
@@ -1424,7 +1424,7 @@ Mongoose.
   </div>
   ```
 
-- [ ] Update `Sidebar.jsx` to accept and display an aggregated tag list:
+- [✅] Update `Sidebar.jsx` to accept and display an aggregated tag list:
   ```jsx
   // add import
   import { Hash } from "lucide-react";
@@ -1452,7 +1452,7 @@ Mongoose.
     ))}
   ```
 
-- [ ] Update `Dashboard.jsx` to derive the unique tag list and filter by
+- [✅] Update `Dashboard.jsx` to derive the unique tag list and filter by
       the selected one:
   ```jsx
   // add import
@@ -1476,7 +1476,7 @@ Mongoose.
   <NoteList notes={visibleNotes} ... />
   ```
 
-- [ ] **Test:** add two different tags to two different notes. Confirm
+- [✅] **Test:** add two different tags to two different notes. Confirm
       both appear under "Tags" in the sidebar with no duplicates. Click
       one tag — confirm the note list filters down to only notes with
       that tag, and "All Notes" un-filters it. Remove a tag from a note

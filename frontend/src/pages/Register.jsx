@@ -5,6 +5,20 @@ import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import Spinner from "../components/Spinner";
 
+function Field({ label, error, ...inputProps }) {
+  return (
+    <label className="flex flex-col gap-1.5 text-sm text-dark-text-secondary">
+      {label}
+      <input
+        {...inputProps}
+        className={`rounded-lg border bg-dark-bg px-3 py-2 text-dark-text placeholder:text-dark-text-placeholder focus:outline-none ${error ? "border-danger" : "border-dark-border"
+          }`}
+      />
+      {error && <span className="text-xs text-danger">{error}</span>}
+    </label>
+  );
+}
+
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -49,18 +63,6 @@ export default function Register() {
       setIsSubmitting(false);
     }
   };
-
-  const Field = ({ label, error, ...inputProps }) => (
-    <label className="flex flex-col gap-1.5 text-sm text-dark-text-secondary">
-      {label}
-      <input
-        {...inputProps}
-        className={`rounded-lg border bg-dark-bg px-3 py-2 text-dark-text placeholder:text-dark-text-placeholder focus:outline-none ${error ? "border-danger" : "border-dark-border"
-          }`}
-      />
-      {error && <span className="text-xs text-danger">{error}</span>}
-    </label>
-  );
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-dark-bg px-4">

@@ -1,12 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
-import { Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
+import TagChip from "./TagChip";
 
 const AUTOSAVE_DELAY_MS = 800;
 
+function areArraysEqual(a = [], b = []) {
+    if (a.length !== b.length) return false;
+    return a.every((value, index) => value === b[index]);
+}
+
 export default function NoteEditor({ note, onUpdate, onDelete }) {
+    const [tags, setTags] = useState(note.tags || []);
+    const [tagInput, setTagInput] = useState("");
+    const [showTagInput, setShowTagInput] = useState(false);
     const [title, setTitle] = useState(note.title);
     const [content, setContent] = useState(note.content || "");
     const [saveStatus, setSaveStatus] = useState("saved"); // "saved" | "saving" | "error"
@@ -23,23 +32,51 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
         }
     };
 
+    const handleAddTag = () => {
+        const newTag = tagInput.trim().replace(/,$/, "");
+        const tagExists = tags.some((tag) => tag.toLowerCase() === newTag.toLowerCase());
+
+        if (!newTag || tagExists) {
+            setTagInput("");
+            return;
+        }
+
+        setTags((prevTags) => [...prevTags, newTag]);
+        setTagInput("");
+        setShowTagInput(false);
+    };
+
+    const handleRemoveTag = (tagToRemove) => {
+        setTags((prevTags) => prevTags.filter((tag) => tag !== tagToRemove));
+    };
+
     // Reset local state whenever a DIFFERENT note is selected
+    /* eslint-disable react-hooks/set-state-in-effect */
     useEffect(() => {
         setTitle(note.title);
         setContent(note.content || "");
+        setTags(note.tags || []);
+        setTagInput("");
+        setShowTagInput(false);
         setSaveStatus("saved");
     }, [note._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const saveTimer = useRef(null);
 
     useEffect(() => {
-        if (title === note.title && content === note.content) return;
+        if (
+            title === note.title &&
+            content === note.content &&
+            areArraysEqual(tags, note.tags)
+        ) {
+            return;
+        }
 
         setSaveStatus("saving");
         clearTimeout(saveTimer.current);
         saveTimer.current = setTimeout(async () => {
             try {
-                await onUpdate(note._id, { title, content });
+                await onUpdate(note._id, { title, content, tags });
                 setSaveStatus("saved");
             } catch (err) {
                 setSaveStatus("error");
@@ -49,7 +86,8 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
 
         return () => clearTimeout(saveTimer.current);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [title, content]);
+    }, [title, content, tags]);
+    /* eslint-enable react-hooks/set-state-in-effect */
 
     return (
         <div className="flex h-full flex-1 flex-col bg-light-bg dark:bg-dark-bg">
@@ -87,6 +125,54 @@ export default function NoteEditor({ note, onUpdate, onDelete }) {
                 <p className="text-xs uppercase tracking-wide text-light-text-secondary">
                     Last edited {new Date(note.updatedAt).toLocaleString()}
                 </p>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                    {tags.map((tag) => (
+                        <TagChip key={tag} label={tag} onRemove={() => handleRemoveTag(tag)} />
+                    ))}
+                    <button
+                        type="button"
+                        onClick={() => setShowTagInput((value) => !value)}
+                        className="inline-flex items-center gap-1 rounded-full border border-light-border bg-light-surface px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-light-text-secondary transition hover:border-accent-orange hover:text-accent-orange dark:border-dark-border dark:bg-dark-surface dark:text-dark-text-secondary"
+                    >
+                        <Plus size={12} />
+                        Add tag
+                    </button>
+                </div>
+                {showTagInput && (
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                        <input
+                            type="text"
+                            autoFocus
+                            value={tagInput}
+                            onChange={(e) => setTagInput(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === ",") {
+                                    e.preventDefault();
+                                    handleAddTag();
+                                }
+                            }}
+                            placeholder="New tag"
+                            className="min-w-[180px] flex-1 rounded-lg border border-light-border bg-transparent px-3 py-2 text-sm text-light-text dark:border-dark-border dark:text-dark-text focus:outline-none"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleAddTag}
+                            className="rounded-lg bg-accent-orange px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-accent-orange/90"
+                        >
+                            Add
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setTagInput("");
+                                setShowTagInput(false);
+                            }}
+                            className="rounded-lg border border-light-border bg-transparent px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-light-text-secondary transition hover:border-accent-orange hover:text-accent-orange dark:border-dark-border"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                )}
             </div>
 
             <textarea

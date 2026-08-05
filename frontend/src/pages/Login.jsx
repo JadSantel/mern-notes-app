@@ -8,7 +8,6 @@ import Spinner from "../components/Spinner";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [shake, setShake] = useState(false);
   const { login = async () => { } } = useAuth() ?? {};
